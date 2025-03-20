@@ -1,23 +1,14 @@
 {
-    "name": "yiisoft/yii2-app-basic",
-    "description": "Yii 2 Basic Project Template",
-    "keywords": ["yii2", "framework", "basic", "project template"],
-    "homepage": "https://www.yiiframework.com/",
-    "type": "project",
-    "license": "BSD-3-Clause",
-    "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "https://www.yiiframework.com/forum/",
-        "wiki": "https://www.yiiframework.com/wiki/",
-        "irc": "ircs://irc.libera.chat:6697/yii",
-        "source": "https://github.com/yiisoft/yii2"
-    },
+    "name": "infotech/booker",
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.4.0",
+        "php": "~8.3",
         "yiisoft/yii2": "~2.0.45",
         "yiisoft/yii2-bootstrap5": "~2.0.2",
-        "yiisoft/yii2-symfonymailer": "~2.0.3"
+        "yiisoft/yii2-symfonymailer": "~2.0.3",
+        "yiithings/yii2-dotenv": "dev-master",
+        "yii-dream-team/smspilot": "*",
+        "yiisoft/yii2-queue": "3.0.x-dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -47,6 +38,13 @@
             "yii\\composer\\Installer::postCreateProject",
             "yii\\composer\\Installer::postInstall"
         ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Book\\": "src/Book/",
+            "Common\\": "src/Common/",
+            "User\\": "src/User/"
+        }
     },
     "extra": {
         "yii\\composer\\Installer::postCreateProject": {

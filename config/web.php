@@ -5,8 +5,9 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Booker',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'queue'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -20,7 +21,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => \User\Entity\User::class,
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -41,15 +42,12 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
+        'queue' => [
+            'class' => \yii\queue\sync\Queue::class, // тут, конечно, другой драйвер в реальном проекте подключить надо
+            'as log' => \yii\queue\LogBehavior::class,
         ],
-        */
+        'db' => $db,
+        'urlManager' => require __DIR__ . '/routes.php',
     ],
     'params' => $params,
 ];
@@ -70,5 +68,7 @@ if (YII_ENV_DEV) {
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
+
+require __DIR__ . '/providers.php';
 
 return $config;

@@ -1,53 +1,41 @@
 <?php
 
-/** @var yii\web\View $this */
+declare(strict_types=1);
 
-$this->title = 'My Yii Application';
+use Common\Widgets\BestAuthorsWidget;
+use yii\widgets\ListView;
+
+/** @var yii\web\View $this */
+/** @var yii\data\ActiveDataProvider $last_books_data_provider */
+
+$this->title = 'Booker';
 ?>
 <div class="site-index">
-
-    <div class="jumbotron text-center bg-transparent mt-5 mb-5">
-        <h1 class="display-4">Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
+    <div class="jumbotron bg-transparent mt-3 mb-4">
+        <h1 class="display-4">Booker</h1>
+        <p class="lead">Лучшее место для книг</p>
     </div>
 
     <div class="body-content">
-
         <div class="row">
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+            <h3>Последние публикации</h3>
+            <?php echo ListView::widget([
+                'dataProvider' => $last_books_data_provider,
+                'itemView' => '/books/_card',
+                'layout' => '{summary}<div class="d-flex p-2 flex-wrap">{items}</div>{pager}',
+            ]); ?>
         </div>
 
+        <div class="row">
+            <h3>Топ авторов за всё время</h3>
+            <?php echo BestAuthorsWidget::widget() ?>
+        </div>
+
+        <div class="row">
+            <h3>Топ авторов за прошедший год</h3>
+            <?php echo BestAuthorsWidget::widget([
+                BestAuthorsWidget::PARAM_YEAR => (new DateTime())->sub(new DateInterval('P1Y'))->format('Y'),
+            ]) ?>
+        </div>
     </div>
 </div>

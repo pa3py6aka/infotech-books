@@ -35,7 +35,7 @@ class BooksController extends Controller
                         'actions' => [
                             'my',
                             'add',
-                            'edit'
+                            'edit',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -112,5 +112,16 @@ class BooksController extends Controller
         }
 
         return $this->render('edit', ['model' => $form]);
+    }
+
+    public function actionDelete(int $id): Response
+    {
+        if ($this->service->deleteBook($id)) {
+            Yii::$app->session->setFlash('success', 'Книга успешно удалена.');
+            return $this->goBack();
+        }
+
+        Yii::$app->session->setFlash('error', 'Не удалось удалить книгу.');
+        return $this->goBack();
     }
 }

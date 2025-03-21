@@ -71,4 +71,9 @@ class BookService
 
         return $this->repository->save($book);
     }
+
+    public function deleteBook(int $id): bool
+    {
+        return $this->repository->delete($id);
+    }
 }

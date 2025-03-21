@@ -20,7 +20,9 @@
         "codeception/module-asserts": "^3.0 || ^1.1",
         "codeception/module-yii2": "^1.1",
         "codeception/module-filesystem": "^3.0 || ^2.0 || ^1.1",
-        "codeception/verify": "^3.0 || ^2.2"
+        "codeception/verify": "^3.0 || ^2.2",
+        "phpstan/phpstan": "2.1.x-dev",
+        "phpstan/phpstan-strict-rules": "2.0.x-dev"
     },
     "config": {
         "allow-plugins": {
@@ -38,6 +40,9 @@
         "post-create-project-cmd": [
             "yii\\composer\\Installer::postCreateProject",
             "yii\\composer\\Installer::postInstall"
+        ],
+        "lint-phpstan": [
+            "./vendor/bin/phpstan analyze -c phpstan.neon --memory-limit=2048M"
         ]
     },
     "autoload": {

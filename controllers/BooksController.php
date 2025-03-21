@@ -85,7 +85,6 @@ class BooksController extends Controller
                 Yii::$app->session->setFlash('success', 'Книга успешно добавлена.');
                 return $this->redirect(Url::to(['/books/my']));
             } catch (\Throwable $exception) {
-                throw $exception;
                 Yii::$app->session->setFlash('error', 'Не удалось добавить книгу.');
                 Yii::getLogger()->log($exception->getMessage(), LogLevel::ERROR);
                 return $this->redirect(Url::to(['/books/add']));

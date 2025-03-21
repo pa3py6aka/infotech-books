@@ -64,6 +64,7 @@ class UserRepository
             );
         }
 
+        /** @phpstan-ignore-next-line */
         return $query->all();
     }
 

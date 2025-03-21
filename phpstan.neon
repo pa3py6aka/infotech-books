@@ -1,0 +1,22 @@
+parameters:
+    # Level 9 is the highest level
+    level: 5
+    paths:
+      - src
+      - commands
+      - controllers
+      - widgets
+    excludePaths:
+    ignoreErrors:
+      - '#Access to static property \$app on an unknown class Yii\.#'
+      - '#Call to static method .+ on an unknown class Yii\.#'
+      - '#Access to static property .+ on an unknown class Yii\.#'
+      - '#Variable property access on \$this\(.+\)\.#'
+      - '#Short ternary operator is not allowed#'
+
+    treatPhpDocTypesAsCertain: false
+    strictRules:
+        strictArrayFilter: false
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - phpstan-baseline.neon

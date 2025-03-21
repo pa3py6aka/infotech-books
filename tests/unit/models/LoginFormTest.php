@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace tests\unit\models;
 
-use app\models\LoginForm;
+use Common\Forms\Auth\LoginForm;
 
 class LoginFormTest extends \Codeception\Test\Unit
 {

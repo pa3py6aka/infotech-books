@@ -22,7 +22,17 @@ services:
       - db_data:/var/lib/mysql
     networks:
       booker:
+  redis:
+    image: redis:alpine
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    volumes:
+      - books_redis:/data
+    networks:
+      booker:
+
 networks:
   booker:
 volumes:
   db_data:
+  books_redis:

@@ -1,13 +1,10 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
     'name' => 'Booker',
-    'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'queue'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -16,9 +13,6 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'Qinyxbr1kIXSlpX8gdXwuHMOUEc7UFfO',
-        ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
         ],
         'user' => [
             'identityClass' => \User\Entity\User::class,
@@ -33,20 +27,6 @@ $config = [
             // send all mails to a file by default.
             'useFileTransport' => true,
         ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ],
-        'queue' => [
-            'class' => \yii\queue\sync\Queue::class, // тут, конечно, другой драйвер в реальном проекте подключить надо
-            'as log' => \yii\queue\LogBehavior::class,
-        ],
-        'db' => $db,
         'urlManager' => require __DIR__ . '/routes.php',
     ],
     'params' => $params,
@@ -58,7 +38,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*'],
     ];
 
     $config['bootstrap'][] = 'gii';
@@ -71,4 +51,7 @@ if (YII_ENV_DEV) {
 
 require __DIR__ . '/providers.php';
 
-return $config;
+return array_merge_recursive(
+    require __DIR__ . '/common.php',
+    $config
+);

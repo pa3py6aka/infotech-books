@@ -24,6 +24,7 @@ services:
       booker:
   redis:
     image: redis:alpine
+    restart: unless-stopped
     ports:
       - "${REDIS_PORT}:${REDIS_PORT}"
     volumes:

@@ -167,6 +167,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getSubscribedAuthors(): ActiveQuery
     {
+        // todo: Строки лучше вынести в константы
         return $this->hasMany(self::class, [self::ATTR_ID => 'author_id'])
             ->viaTable('user_author_subscriptions', ['user_id' => self::ATTR_ID])
             ->indexBy(self::ATTR_ID);
@@ -174,6 +175,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getSubscribedUsers(): ActiveQuery
     {
+        // todo: Строки лучше вынести в константы
         return $this->hasMany(self::class, [self::ATTR_ID => 'user_id'])
             ->viaTable('user_author_subscriptions', ['author_id' => self::ATTR_ID]);
     }

@@ -13,6 +13,7 @@ parameters:
       - '#Access to static property .+ on an unknown class Yii\.#'
       - '#Variable property access on \$this\(.+\)\.#'
       - '#Short ternary operator is not allowed#'
+      - '#Construct empty\(\) is not allowed\. Use more strict comparison\.#'
 
     treatPhpDocTypesAsCertain: false
     strictRules:

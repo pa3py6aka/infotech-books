@@ -7,6 +7,7 @@ namespace User\Service;
 use Book\Entity\Book;
 use Common\Exceptions\ModelNotFoundException;
 use Common\Jobs\SendSmsNotifyJob;
+use User\Entity\User;
 use User\Repository\UserRepository;
 use Yii;
 use yii\db\Exception;
@@ -30,15 +31,11 @@ class SubscribeService
 
     public function notify(Book $book): void
     {
-        foreach($book->author->subscribedUsers as $user) {
-            if ($user->getPhone() === '') {
-                continue;
-            }
-
-            Yii::$app->queue->push(new SendSmsNotifyJob([
-                'phone' => $user->getPhone(),
-                'book' => $book,
-            ]));
+        $phones = array_filter(array_map(static fn (User $user): string => $user->getPhone(), $book->author->subscribedUsers));
+        if (empty($phones)) {
+            return;
         }
+
+        Yii::$app->queue->push(new SendSmsNotifyJob(['phones' => $phones]));
     }
 }
